@@ -64,16 +64,17 @@ function App() {
            const movies = await trandingMovie();
            setTrendingMovie(movies)
        }catch(error){
-          console.log('error')
+        console.log('Error fetching trending movies:', error);
+       }   
        }
-  }
-
+      
   useEffect(() => {
     loadTrendingMovie();
   },[])
   useEffect(() => {
     fetchMovie(debounceSearch)
   },[debounceSearch])
+
   return (
    <main>
     <div>
@@ -83,7 +84,7 @@ function App() {
           <h1>Find <span className='text-gradient'>Movies</span> With Out The Hassle</h1>
           <Search searchParam={searchParam} setSearchParam={setSearchParam}/>
         </header>
-        {trendingMovie.length > 0 && (
+        {loadTrendingMovie.length > 0 && (
           <section className='trending'>
             <h2>Trending Movies</h2>
             <ul>
