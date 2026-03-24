@@ -1,4 +1,4 @@
-import React from 'react'
+import { useNavigate } from "react-router-dom";
 
 const MovieCard = ({movie : 
     {
@@ -9,8 +9,17 @@ const MovieCard = ({movie :
         original_language
         }
 }) => {
+    const navigate = useNavigate();
+
+    const handleCardClick = () => {
+        // Navigate to the movie details page with the movie ID as a parameter actors name related to the movie and movie name
+        navigate(`/movie/${title}`, { state: { title, poster_path, vote_average, release_date, original_language } });
+    }
+
   return (
-    <div className='movie-card content-center justify-center'>
+
+    <div className='movie-card content-center justify-center hover:cursor-pointer'
+         onClick={handleCardClick}>
         <img 
         src={poster_path ? `https://image.tmdb.org/t/p/original${poster_path}` : '/no-movie.png'}
         alt={title}
@@ -31,5 +40,7 @@ const MovieCard = ({movie :
     </div>
   )
 }
+
+
 
 export default MovieCard

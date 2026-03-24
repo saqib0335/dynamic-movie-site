@@ -5,6 +5,8 @@ import Search from './Component/Search'
 import Spinner from './Component/Spinner'
 import MovieCard from './Component/MovieCard'
 import { updateSearch, trandingMovie } from './appwrite.js'
+import MovieDetails from './Component/MovieDetalis'
+import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 const API_BASE_URL = 'https://api.themoviedb.org/3'
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
@@ -15,7 +17,7 @@ const API_OPTION = {
     Authorization: `Bearer ${API_KEY}`
   }
 }
-function App() {
+const Home = () => {
   const [searchParam, setSearchParam] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
   const [movieList, setMovieList] = useState([]);
@@ -68,12 +70,13 @@ function App() {
        }   
        }
       
-  useEffect(() => {
-    loadTrendingMovie();
-  },[])
-  useEffect(() => {
-    fetchMovie(debounceSearch)
-  },[debounceSearch])
+     useEffect(() => {
+       loadTrendingMovie();
+      },[])
+
+    useEffect(() => {
+       fetchMovie(debounceSearch)
+     },[debounceSearch])
 
   return (
    <main>
@@ -116,6 +119,16 @@ function App() {
       </div>
     </div>
    </main>
+  )
+}
+const App = () => {
+  return(
+    <Router>
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/movie/:id' element={<MovieDetails />} />
+      </Routes>
+    </Router>
   )
 }
 
